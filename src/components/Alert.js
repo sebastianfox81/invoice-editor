@@ -7,9 +7,9 @@ const Alert = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       removeAlert()
-    }, 3000)
+    }, 1500)
     return () => clearTimeout(timeout)
-  }, [list, removeAlert])
+  }, [list])
 
   return <p className={`alert alert-${alertType}`}>{alertText}</p>
 }
