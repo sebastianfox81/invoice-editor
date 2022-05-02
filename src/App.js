@@ -1,15 +1,11 @@
 import React from 'react'
-import { useGlobalContext } from './context'
 import { InvoiceForm, ItemList, Totals } from './components'
 import { Container, Row, Col } from 'react-bootstrap'
 
 const App = () => {
-  const { list, isEditing, clearForm } =
-    useGlobalContext()
 
-  if (isEditing && list.length === 0) {
-    clearForm()
-  }
+
+ 
 
   return (
     <div className="section-center">

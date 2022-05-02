@@ -5,44 +5,18 @@ import Alert from './Alert'
 import { charCheck, qtyCheck, priceCheck } from '../utils'
 
 const InvoiceForm = () => {
-  const {
-    title,
-    quantity,
-    price,
-    handleChange,
-    addItem,
-    isEditing,
-    editItem,
-    showAlertTitle,
-    showAlertQty,
-    showAlertPrice,
-    validationError
-  } = useGlobalContext()
+
 
   const handleInputChange = (e) => {
-    const name = e.target.id
-    const value = e.target.value
-    handleChange({ name, value })
+
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    const validTitle = charCheck(title)
-    const validQty = qtyCheck(quantity)
-    const validPrice = priceCheck(price)
 
-    if (!title || !validTitle) {
-      validationError('title')
-    } else if (!quantity || !validQty) {
-      validationError('qty')
-    } else if (!price || !validPrice) {
-      validationError('price')
-    } else if (isEditing) {
-      editItem()
-    } else {
-      addItem()
-    }
+
+
   }
   return (
     <div>
@@ -56,12 +30,11 @@ const InvoiceForm = () => {
           <Form.Control
             required
             id="title"
-            value={title}
             type="text"
             placeholder="Item"
             onChange={handleInputChange}
           />
-          <div className="alert-box">{showAlertTitle && <Alert />}</div>
+          <div className="alert-box"></div>
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -69,12 +42,11 @@ const InvoiceForm = () => {
           <Form.Control
             required
             id="quantity"
-            value={quantity}
             type="text"
             placeholder="Qty"
             onChange={handleInputChange}
           />
-          <div className="alert-box">{showAlertQty && <Alert />}</div>
+          <div className="alert-box"></div>
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -82,20 +54,19 @@ const InvoiceForm = () => {
           <Form.Control
             required
             id="price"
-            value={price}
             type="text"
             placeholder="Price"
             onChange={handleInputChange}
           />
-          <div className="alert-box">{showAlertPrice && <Alert />}</div>
+          <div className="alert-box"></div>
         </Form.Group>
 
         <Button
-          variant={isEditing ? 'danger' : 'primary'}
+          variant='primary'
           type="submit"
           onClick={handleSubmit}
         >
-          {isEditing ? 'Update Entry' : 'Save Entry'}
+          Save Entry
         </Button>
       </Form>
     </div>
