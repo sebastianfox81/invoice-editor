@@ -1,9 +1,7 @@
 import React from 'react'
 import Item from './Item'
-import { useGlobalContext } from '../context'
 
-const ItemList = () => {
-  const { list } = useGlobalContext()
+const ItemList = ({ list, deleteItem}) => {
 
   return (
     <table>
@@ -18,7 +16,7 @@ const ItemList = () => {
         </tr>
 
         {list.map((item) => {
-          return <Item key={item.id} {...item} />
+          return <Item key={item.id} {...item} deleteItem={deleteItem}/>
         })}
       </tbody>
     </table>

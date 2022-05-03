@@ -1,27 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { useGlobalContext } from '../context'
 import Alert from './Alert'
 import { charCheck, qtyCheck, priceCheck } from '../utils'
 
-const InvoiceForm = () => {
+const InvoiceForm = ({ addItem }) => {
 
-
-  const handleInputChange = (e) => {
-
-  }
+  const [ title, setTitle ] = useState('')
+  const [ quantity, setQuantity ] = useState(null)
+  const [ price, setPrice ] = useState(null)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-
-
-
+    const item = {
+      id: Math.random(),
+      title,
+      quantity,
+      price
+    }
+    addItem(item)
+    setTitle('')
+    setQuantity('')
+    setPrice('')
   }
+
   return (
     <div>
       <Form
-        noValidate
         onSubmit={handleSubmit}
         className="form"
       >
@@ -31,8 +35,9 @@ const InvoiceForm = () => {
             required
             id="title"
             type="text"
+            value={title}
             placeholder="Item"
-            onChange={handleInputChange}
+            onChange={(e) => setTitle(e.target.value)}
           />
           <div className="alert-box"></div>
         </Form.Group>
@@ -42,9 +47,10 @@ const InvoiceForm = () => {
           <Form.Control
             required
             id="quantity"
-            type="text"
+            type='number'
+            value={quantity}
             placeholder="Qty"
-            onChange={handleInputChange}
+            onChange={(e) => setQuantity(e.target.value)}
           />
           <div className="alert-box"></div>
         </Form.Group>
@@ -54,9 +60,10 @@ const InvoiceForm = () => {
           <Form.Control
             required
             id="price"
-            type="text"
+            type="number"
+            value={price}
             placeholder="Price"
-            onChange={handleInputChange}
+            onChange={(e) => setPrice(e.target.value)}
           />
           <div className="alert-box"></div>
         </Form.Group>

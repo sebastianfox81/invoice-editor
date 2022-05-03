@@ -1,33 +1,31 @@
 import React from 'react'
-import { useGlobalContext } from '../context'
 import { MdDeleteForever } from 'react-icons/md'
 import { FiEdit } from 'react-icons/fi'
 import { BsPlus } from 'react-icons/bs'
 import { BiMinus } from 'react-icons/bi'
 
-const Item = ({ id, title, quantity, price, total }) => {
-  const itemTotal = parseFloat(price * quantity).toFixed(2)
+const Item = ({ id, title, quantity, price, total, deleteItem }) => {
+  const totals = price * quantity
 
-  const { toggleAmount, removeItem, findItem } = useGlobalContext()
   return (
     <tr>
       <td>{title}</td>
       <td>{quantity}</td>
       <td>{price}</td>
-      <td>{itemTotal}</td>
+      <td>{totals}</td>
       <td>
-        <button className="remove-btn" onClick={() => removeItem(id)}>
-          <MdDeleteForever />
+        <button className="remove-btn" >
+          <MdDeleteForever onClick={() => deleteItem(id)}/>
         </button>
-        <button className="edit-btn" onClick={() => findItem(id)}>
+        <button className="edit-btn" >
           <FiEdit />
         </button>
       </td>
       <td className="amount-btns">
-        <button className="dec-btn" onClick={() => toggleAmount(id, 'dec')}>
+        <button className="dec-btn" >
           <BiMinus />
         </button>
-        <button className="inc-btn" onClick={() => toggleAmount(id, 'inc')}>
+        <button className="inc-btn" >
           <BsPlus />
         </button>
       </td>

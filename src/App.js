@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { InvoiceForm, ItemList, Totals } from './components'
 import { Container, Row, Col } from 'react-bootstrap'
-
+import {data} from './data'
 const App = () => {
 
+  const [ list, setList ] = useState(data)
 
- 
+  const deleteItem = (id) => {
+    setList(list.filter((item) => {
+      return item.id !== id
+    }))
+  }
+  const addItem = (item) => {
+    setList([...list, item])
+  }
+
+
 
   return (
     <div className="section-center">
@@ -13,11 +23,11 @@ const App = () => {
       <Container>
         <Row className="m-5">
           <Col sm={4} className="left-column">
-            <InvoiceForm />
+            <InvoiceForm addItem={addItem}/>
             <Totals />
           </Col>
           <Col sm={8} className="right-column">
-            <ItemList />
+            <ItemList list={list} deleteItem={deleteItem}/>
           </Col>
         </Row>
       </Container>
