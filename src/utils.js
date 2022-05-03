@@ -14,4 +14,8 @@ export const priceCheck = (str) => {
   return pattern.test(str)
 }
 
+export const formatNum = (num) => {
+  return parseFloat(num).toFixed(2)
+}
+
 

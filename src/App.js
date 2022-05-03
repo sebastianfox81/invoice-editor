@@ -8,7 +8,7 @@ const App = () => {
   const [item, setItem] = useState({ title: '', quantity: '', price: '' })
   const [ editId, setEditId ] = useState(null)
   const [ isEditing, setIsEditing ] = useState(false)
-  
+
   return (
     <div className="section-center">
       <h1 className="title">Invoice Editor</h1>

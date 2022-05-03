@@ -1,7 +1,7 @@
 import React from 'react'
 import Item from './Item'
 
-const ItemList = ({ list, setList, setIsEditing, setEditId, setItem }) => {
+const ItemList = ({ list, setList, setIsEditing, setEditId, setItem, toggleAmount }) => {
   return (
     <table>
       <tbody>

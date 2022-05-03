@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import Alert from './Alert'
 import { charCheck, qtyCheck, priceCheck } from '../utils'
+import { formatNum } from '../utils'
 
 const InvoiceForm = ({ item, setItem, list, setList, isEditing, setIsEditing, editId, setEditId }) => {
 
@@ -15,9 +16,9 @@ const InvoiceForm = ({ item, setItem, list, setList, isEditing, setIsEditing, ed
     e.preventDefault()
     if (isEditing) {
       setList(list.map((item) => {
-        // const { title, quantity, price } = item
+        const { title, quantity, price } = item
         if (item.id === editId) {
-          return {...item, title: item.title, quantity: item.quantity, price: item.price }
+          return {...item, title, quantity, price }
         }
         return item
       }))
@@ -28,8 +29,8 @@ const InvoiceForm = ({ item, setItem, list, setList, isEditing, setIsEditing, ed
       const newItem = {
         id: Math.random(),
         title: item.title,
-        quantity: item.quantity,
-        price: item.price
+        quantity: parseInt(item.quantity),
+        price: formatNum(item.price)
       }
       setList([...list, newItem])
       setItem({
