@@ -3,26 +3,45 @@ import { Form, Button } from 'react-bootstrap'
 import Alert from './Alert'
 import { charCheck, qtyCheck, priceCheck } from '../utils'
 
-const InvoiceForm = ({ addItem }) => {
+const InvoiceForm = ({ item, setItem, list, setList, isEditing, setIsEditing, editId, setEditId }) => {
 
-  const [ title, setTitle ] = useState('')
-  const [ quantity, setQuantity ] = useState(null)
-  const [ price, setPrice ] = useState(null)
+  const handleChange = (e) => {
+    const name = e.target.id
+    const value = e.target.value
+    setItem({...item, [name]: value})
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const item = {
-      id: Math.random(),
-      title,
-      quantity,
-      price
+    if (isEditing) {
+      setList(list.map((item) => {
+        // const { title, quantity, price } = item
+        if (item.id === editId) {
+          return {...item, title: item.title, quantity: item.quantity, price: item.price }
+        }
+        return item
+      }))
+      setItem({ title: '', quantity: '', price: ''})
+      setEditId(null)
+      setIsEditing(false)
+    } else {
+      const newItem = {
+        id: Math.random(),
+        title: item.title,
+        quantity: item.quantity,
+        price: item.price
+      }
+      setList([...list, newItem])
+      setItem({
+        title: '',
+        quantity: '',
+        price: ''
+      })
+
     }
-    addItem(item)
-    setTitle('')
-    setQuantity('')
-    setPrice('')
   }
 
+  const { title, quantity, price } = item
   return (
     <div>
       <Form
@@ -37,7 +56,7 @@ const InvoiceForm = ({ addItem }) => {
             type="text"
             value={title}
             placeholder="Item"
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={handleChange}
           />
           <div className="alert-box"></div>
         </Form.Group>
@@ -50,7 +69,7 @@ const InvoiceForm = ({ addItem }) => {
             type='number'
             value={quantity}
             placeholder="Qty"
-            onChange={(e) => setQuantity(e.target.value)}
+            onChange={handleChange}
           />
           <div className="alert-box"></div>
         </Form.Group>
@@ -63,17 +82,17 @@ const InvoiceForm = ({ addItem }) => {
             type="number"
             value={price}
             placeholder="Price"
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={handleChange}
           />
           <div className="alert-box"></div>
         </Form.Group>
 
         <Button
-          variant='primary'
+          variant={isEditing ? 'danger' : 'primary'}
           type="submit"
           onClick={handleSubmit}
         >
-          Save Entry
+          {isEditing ? 'Upadate Entry' : 'Save Entry'}
         </Button>
       </Form>
     </div>

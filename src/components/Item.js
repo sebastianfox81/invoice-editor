@@ -4,8 +4,27 @@ import { FiEdit } from 'react-icons/fi'
 import { BsPlus } from 'react-icons/bs'
 import { BiMinus } from 'react-icons/bi'
 
-const Item = ({ id, title, quantity, price, total, deleteItem }) => {
+const Item = ({ id, title, quantity, price, list, setList, setIsEditing, setEditId, setItem }) => {
   const totals = price * quantity
+
+  const deleteItem = (id) => {
+    setList(list.filter((item) => {
+      return item.id !== id
+    }))
+  }
+
+  const findItem = (id) => {
+    const specificItem = list.find((item) => {
+      return item.id === id
+    })
+    setIsEditing(true)
+    setEditId(id)
+    setItem({
+      title: specificItem.title,
+      quantity: specificItem.quantity,
+      price: specificItem.price
+    })
+  }
 
   return (
     <tr>
@@ -17,7 +36,7 @@ const Item = ({ id, title, quantity, price, total, deleteItem }) => {
         <button className="remove-btn" >
           <MdDeleteForever onClick={() => deleteItem(id)}/>
         </button>
-        <button className="edit-btn" >
+        <button className="edit-btn" onClick={() => findItem(id)}>
           <FiEdit />
         </button>
       </td>

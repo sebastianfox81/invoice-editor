@@ -1,8 +1,7 @@
 import React from 'react'
 import Item from './Item'
 
-const ItemList = ({ list, deleteItem}) => {
-
+const ItemList = ({ list, setList, setIsEditing, setEditId, setItem }) => {
   return (
     <table>
       <tbody>
@@ -16,7 +15,17 @@ const ItemList = ({ list, deleteItem}) => {
         </tr>
 
         {list.map((item) => {
-          return <Item key={item.id} {...item} deleteItem={deleteItem}/>
+          return (
+            <Item
+              key={item.id}
+              {...item}
+              list={list}
+              setList={setList}
+              setIsEditing={setIsEditing}
+              setEditId={setEditId}
+              setItem={setItem}
+            />
+          )
         })}
       </tbody>
     </table>
