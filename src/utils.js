@@ -9,6 +9,7 @@ export const qtyCheck = (str) => {
 
 }
 
+
 export const priceCheck = (str) => {
   const pattern = /^(0|[1-9]\d*)(\.\d+)?$/
   return pattern.test(str)
