@@ -13,9 +13,10 @@ const InvoiceForm = ({
   editId,
   setEditId,
 }) => {
-  const validTitle = charCheck(item.title)
-  const validQty = qtyCheck(item.quantity)
-  const validPrice = priceCheck(item.price)
+  const { id, title, quantity, price } = item
+  const validTitle = charCheck(title)
+  const validQty = qtyCheck(quantity)
+  const validPrice = priceCheck(price)
 
   const [alert, setAlert] = useState({
     showTitle: false,
@@ -45,7 +46,7 @@ const InvoiceForm = ({
     e.preventDefault()
     if (!validTitle) {
       showAlert(true, false, false, 'Please enter a valid item name', 'danger')
-    } else if (!item.quantity || !validQty) {
+    } else if (!quantity || !validQty) {
       showAlert(false, true, false, 'Please enter a valid amount', 'danger')
     } else if (!validPrice) {
       showAlert(
@@ -57,12 +58,11 @@ const InvoiceForm = ({
       )
     } else if (isEditing) {
       setList(
-        list.map((item) => {
-          const { title, quantity, price } = item
-          if (item.id === editId) {
-            return { ...item, title, quantity, price }
+        list.map((invItem) => {
+          if (invItem.id === editId) {
+            return { ...invItem, title, quantity, price}
           }
-          return item
+          return invItem
         }),
       )
       setItem({ title: '', quantity: '', price: '' })
@@ -71,9 +71,9 @@ const InvoiceForm = ({
     } else {
       const newItem = {
         id: Math.random(),
-        title: item.title,
-        quantity: parseInt(item.quantity),
-        price: formatNum(item.price),
+        title,
+        quantity: parseInt(quantity),
+        price: formatNum(price),
       }
       setList([...list, newItem])
       setItem({
@@ -84,7 +84,6 @@ const InvoiceForm = ({
     }
   }
 
-  const { title, quantity, price } = item
   return (
     <div>
       <Form onSubmit={handleSubmit} className="form">
