@@ -2,16 +2,18 @@ import React from 'react'
 import { formatNum } from '../utils'
 
 const Totals = ({ list }) => {
-
-  let totals = list.reduce((invTotal, currItem) => {
-    invTotal.total += currItem.quantity * currItem.price
-    invTotal.tax += (currItem.quantity * currItem.price) * 0.05
-    return invTotal
-  }, {
-    total: 0,
-    tax: 0
-  })
-  const grand = totals.total + totals.tax
+  let totals = list.reduce(
+    (invTotal, currItem) => {
+      invTotal.total += currItem.quantity * currItem.price
+      invTotal.tax += currItem.quantity * currItem.price * 0.05
+      return invTotal
+    },
+    {
+      total: 0,
+      tax: 0,
+    },
+  )
+  const grandTotal = totals.total + totals.tax
   totals.total = formatNum(totals.total)
   totals.tax = formatNum(totals.tax)
 
@@ -27,7 +29,7 @@ const Totals = ({ list }) => {
           </td>
         </tr>
         <tr>
-          <td>Grand Total: ${formatNum(grand)}</td>
+          <td>Grand Total: ${formatNum(grandTotal)}</td>
         </tr>
       </table>
     </div>

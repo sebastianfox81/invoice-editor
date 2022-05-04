@@ -6,9 +6,7 @@ export const charCheck = (str) => {
 export const qtyCheck = (str) => {
   const pattern = /^[0-9]*$/
   return pattern.test(str)
-
 }
-
 
 export const priceCheck = (str) => {
   const pattern = /^(0|[1-9]\d*)(\.\d+)?$/
@@ -18,5 +16,3 @@ export const priceCheck = (str) => {
 export const formatNum = (num) => {
   return parseFloat(num).toFixed(2)
 }
-
-

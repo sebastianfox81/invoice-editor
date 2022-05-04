@@ -6,8 +6,8 @@ import { data } from './data'
 const App = () => {
   const [list, setList] = useState(data)
   const [item, setItem] = useState({ title: '', quantity: '', price: '' })
-  const [ editId, setEditId ] = useState(null)
-  const [ isEditing, setIsEditing ] = useState(false)
+  const [editId, setEditId] = useState(null)
+  const [isEditing, setIsEditing] = useState(false)
 
   return (
     <div className="section-center">
@@ -26,7 +26,7 @@ const App = () => {
               setEditId={setEditId}
             />
 
-            <Totals list={list}/>
+            <Totals list={list} />
           </Col>
           <Col sm={8} className="right-column">
             <ItemList

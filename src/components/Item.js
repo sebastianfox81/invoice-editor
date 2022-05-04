@@ -5,13 +5,25 @@ import { BsPlus } from 'react-icons/bs'
 import { BiMinus } from 'react-icons/bi'
 import { formatNum } from '../utils'
 
-const Item = ({ id, title, quantity, price, list, setList, setIsEditing, setEditId, setItem }) => {
+const Item = ({
+  id,
+  title,
+  quantity,
+  price,
+  list,
+  setList,
+  setIsEditing,
+  setEditId,
+  setItem,
+}) => {
   const total = formatNum(price * quantity)
 
   const deleteItem = (id) => {
-    setList(list.filter((item) => {
-      return item.id !== id
-    }))
+    setList(
+      list.filter((item) => {
+        return item.id !== id
+      }),
+    )
   }
 
   const findItem = (id) => {
@@ -23,22 +35,21 @@ const Item = ({ id, title, quantity, price, list, setList, setIsEditing, setEdit
     setItem({
       title: specificItem.title,
       quantity: specificItem.quantity,
-      price: specificItem.price
+      price: specificItem.price,
     })
   }
   const toggleAmount = (id, type) => {
     const tempList = list.map((item) => {
       if (item.id === id) {
         if (type === 'inc') {
-          return {...item, quantity: item.quantity + 1}
+          return { ...item, quantity: item.quantity + 1 }
         }
         if (type === 'dec') {
           if (item.quantity < 1) {
             item.quantity = 1
           }
-          return {...item, quantity: item.quantity - 1}
+          return { ...item, quantity: item.quantity - 1 }
         }
-
       }
       return item
     })
@@ -52,8 +63,8 @@ const Item = ({ id, title, quantity, price, list, setList, setIsEditing, setEdit
       <td>{price}</td>
       <td>{total}</td>
       <td>
-        <button className="remove-btn" >
-          <MdDeleteForever onClick={() => deleteItem(id)}/>
+        <button className="remove-btn">
+          <MdDeleteForever onClick={() => deleteItem(id)} />
         </button>
         <button className="edit-btn" onClick={() => findItem(id)}>
           <FiEdit />

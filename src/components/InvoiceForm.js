@@ -13,7 +13,6 @@ const InvoiceForm = ({
   editId,
   setEditId,
 }) => {
-
   const validTitle = charCheck(item.title)
   const validQty = qtyCheck(item.quantity)
   const validPrice = priceCheck(item.price)
@@ -26,8 +25,14 @@ const InvoiceForm = ({
     alertText: '',
   })
 
-  const showAlert = ( showTitle = false, showQty = false, showPrice = false, alertText: '', alertType: '') => {
-    setAlert({showTitle, showQty, showPrice, alertText, alertType})
+  const showAlert = (
+    showTitle = false,
+    showQty = false,
+    showPrice = false,
+    alertText: '',
+    alertType: '',
+  ) => {
+    setAlert({ showTitle, showQty, showPrice, alertText, alertType })
   }
 
   const handleChange = (e) => {
@@ -43,7 +48,13 @@ const InvoiceForm = ({
     } else if (!item.quantity || !validQty) {
       showAlert(false, true, false, 'Please enter a valid amount', 'danger')
     } else if (!validPrice) {
-      showAlert(false, false, true, 'Please enter a valid dollar amount', 'danger')
+      showAlert(
+        false,
+        false,
+        true,
+        'Please enter a valid dollar amount',
+        'danger',
+      )
     } else if (isEditing) {
       setList(
         list.map((item) => {
@@ -71,7 +82,6 @@ const InvoiceForm = ({
         price: '',
       })
     }
-
   }
 
   const { title, quantity, price } = item
@@ -88,7 +98,11 @@ const InvoiceForm = ({
             placeholder="Item"
             onChange={handleChange}
           />
-          <div className="alert-box">{alert.showTitle && <Alert list={list} {...alert} removeAlert={showAlert}/>}</div>
+          <div className="alert-box">
+            {alert.showTitle && (
+              <Alert list={list} {...alert} removeAlert={showAlert} />
+            )}
+          </div>
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -101,7 +115,11 @@ const InvoiceForm = ({
             placeholder="Qty"
             onChange={handleChange}
           />
-          <div className="alert-box">{alert.showQty && <Alert list={list} {...alert} removeAlert={showAlert}/>}</div>
+          <div className="alert-box">
+            {alert.showQty && (
+              <Alert list={list} {...alert} removeAlert={showAlert} />
+            )}
+          </div>
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -114,7 +132,11 @@ const InvoiceForm = ({
             placeholder="Price"
             onChange={handleChange}
           />
-          <div className="alert-box">{alert.showPrice && <Alert list={list} {...alert} removeAlert={showAlert}/>}</div>
+          <div className="alert-box">
+            {alert.showPrice && (
+              <Alert list={list} {...alert} removeAlert={showAlert} />
+            )}
+          </div>
         </Form.Group>
 
         <Button
@@ -122,7 +144,7 @@ const InvoiceForm = ({
           type="submit"
           onClick={handleSubmit}
         >
-          {isEditing ? 'Upadate Entry' : 'Save Entry'}
+          {isEditing ? 'Update Entry' : 'Save Entry'}
         </Button>
       </Form>
     </div>
