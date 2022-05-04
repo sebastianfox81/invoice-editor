@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { data } from './data'
 
 const App = () => {
-  const [list, setList] = useState([])
+  const [list, setList] = useState(data)
   const [item, setItem] = useState({ title: '', quantity: '', price: '' })
   const [ editId, setEditId ] = useState(null)
   const [ isEditing, setIsEditing ] = useState(false)
@@ -26,7 +26,7 @@ const App = () => {
               setEditId={setEditId}
             />
 
-            <Totals />
+            <Totals list={list}/>
           </Col>
           <Col sm={8} className="right-column">
             <ItemList
