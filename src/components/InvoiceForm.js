@@ -5,7 +5,7 @@ import { charCheck, qtyCheck, priceCheck, formatNum } from '../utils'
 
 const InvoiceForm = ({
   item,
-  setItem,
+  setItem = () => {},
   list,
   setList,
   isEditing,
@@ -32,7 +32,7 @@ const InvoiceForm = ({
   }
 
   const handleChange = (e) => {
-    const name = e.target.id
+    const name = e.target.name
     const value = e.target.value
     setItem({ ...item, [name]: value })
   }
@@ -86,7 +86,6 @@ const InvoiceForm = ({
       })
     }
   }
-  // const { title, quantity, price } = item
   return (
     <div>
       <Form onSubmit={handleSubmit} className="form">
@@ -94,15 +93,16 @@ const InvoiceForm = ({
           <Form.Label>Enter Item</Form.Label>
           <Form.Control
             required
-            id="title"
+            name="title"
             type="text"
-            value={item.title}
-            placeholder="Item"
+            value={item?.title || ''}
+            placeholder="Item name"
+            data-testid='item-name'
             onChange={handleChange}
           />
           <div className="alert-box">
             {alert.showTitle && (
-              <Alert list={list} {...alert} removeAlert={showAlert} />
+              <Alert data-testid='error' list={list} {...alert} removeAlert={showAlert} />
             )}
           </div>
         </Form.Group>
@@ -111,11 +111,11 @@ const InvoiceForm = ({
           <Form.Label>Enter Quantity</Form.Label>
           <Form.Control
             required
-            id="quantity"
+            name="quantity"
             type="number"
             // min='1'
-            value={item.quantity}
-            placeholder="Qty"
+            value={item?.quantity || ''}
+            data-testid='qty'
             onChange={handleChange}
           />
           <div className="alert-box">
@@ -129,11 +129,11 @@ const InvoiceForm = ({
           <Form.Label>Enter Price</Form.Label>
           <Form.Control
             required
-            id="price"
+            name="price"
             type="number"
             min='1'
-            value={item.price}
-            placeholder="Price"
+            value={item?.price || ''}
+            data-testid='price'
             onChange={handleChange}
           />
           <div className="alert-box">
@@ -147,7 +147,7 @@ const InvoiceForm = ({
           variant={isEditing ? 'danger' : 'primary'}
           type="submit"
           onClick={handleSubmit}
-          disabled={!item.title || !item.quantity || !item.price}
+          disabled={false}
         >
           {isEditing ? 'Update Entry' : 'Save Entry'}
         </Button>

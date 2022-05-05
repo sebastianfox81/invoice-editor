@@ -4,14 +4,14 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { data } from './data'
 
 const App = () => {
-  const [list, setList] = useState(data)
+  const [list, setList] = useState([])
   const [item, setItem] = useState({ title: '', quantity: '', price: '' })
   const [editId, setEditId] = useState(null)
   const [isEditing, setIsEditing] = useState(false)
 
   return (
     <div className="section-center">
-      <h1 className="title">Invoice Editor</h1>
+      <h1 className="title" data-testid='titleId'>Invoice Editor</h1>
       <Container>
         <Row className="m-5">
           <Col sm={4} className="left-column">
