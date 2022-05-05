@@ -13,11 +13,6 @@ const InvoiceForm = ({
   editId,
   setEditId,
 }) => {
-  const { id, title, quantity, price } = item
-  const validTitle = charCheck(title)
-  const validQty = qtyCheck(quantity)
-  const validPrice = priceCheck(price)
-
   const [alert, setAlert] = useState({
     showTitle: false,
     showQty: false,
@@ -44,9 +39,12 @@ const InvoiceForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const validTitle = charCheck(item.title)
+    const validQty = qtyCheck(item.quantity)
+    const validPrice = priceCheck(item.price)
     if (!validTitle) {
       showAlert(true, false, false, 'Please enter a valid item name', 'danger')
-    } else if (!quantity || !validQty) {
+    } else if (!item.quantity || !validQty) {
       showAlert(false, true, false, 'Please enter a valid amount', 'danger')
     } else if (!validPrice) {
       showAlert(
@@ -60,20 +58,25 @@ const InvoiceForm = ({
       setList(
         list.map((invItem) => {
           if (invItem.id === editId) {
-            return { ...invItem, title, quantity, price}
+            return {
+              ...invItem,
+              title: item.title,
+              quantity: Number(item.quantity),
+              price: Number(item.price),
+            }
           }
           return invItem
         }),
       )
-      setItem({ title: '', quantity: '', price: '' })
+      setItem({ title: '', quantity: 0, price: 0 })
       setEditId(null)
       setIsEditing(false)
     } else {
       const newItem = {
         id: Math.random(),
-        title,
-        quantity: parseInt(quantity),
-        price: formatNum(price),
+        title: item.title,
+        quantity: Number(item.quantity),
+        price: Number(item.price)
       }
       setList([...list, newItem])
       setItem({
@@ -83,7 +86,7 @@ const InvoiceForm = ({
       })
     }
   }
-
+  // const { title, quantity, price } = item
   return (
     <div>
       <Form onSubmit={handleSubmit} className="form">
@@ -93,7 +96,7 @@ const InvoiceForm = ({
             required
             id="title"
             type="text"
-            value={title}
+            value={item.title}
             placeholder="Item"
             onChange={handleChange}
           />
@@ -110,7 +113,8 @@ const InvoiceForm = ({
             required
             id="quantity"
             type="number"
-            value={quantity}
+            // min='1'
+            value={item.quantity}
             placeholder="Qty"
             onChange={handleChange}
           />
@@ -127,7 +131,8 @@ const InvoiceForm = ({
             required
             id="price"
             type="number"
-            value={price}
+            min='1'
+            value={item.price}
             placeholder="Price"
             onChange={handleChange}
           />
@@ -142,6 +147,7 @@ const InvoiceForm = ({
           variant={isEditing ? 'danger' : 'primary'}
           type="submit"
           onClick={handleSubmit}
+          disabled={!item.title || !item.quantity || !item.price}
         >
           {isEditing ? 'Update Entry' : 'Save Entry'}
         </Button>

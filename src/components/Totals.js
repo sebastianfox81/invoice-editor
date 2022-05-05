@@ -17,9 +17,13 @@ const Totals = ({ list }) => {
   totals.total = formatNum(totals.total)
   totals.tax = formatNum(totals.tax)
 
+
+
   return (
     <div className="table-container">
       <table className="table">
+        <tbody>
+
         <tr>
           <td>Subtotal: ${totals.total}</td>
         </tr>
@@ -31,6 +35,7 @@ const Totals = ({ list }) => {
         <tr>
           <td>Grand Total: ${formatNum(grandTotal)}</td>
         </tr>
+        </tbody>
       </table>
     </div>
   )
