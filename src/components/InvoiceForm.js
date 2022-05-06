@@ -147,7 +147,7 @@ const InvoiceForm = ({
           variant={isEditing ? 'danger' : 'primary'}
           type="submit"
           onClick={handleSubmit}
-          disabled={false}
+          disabled={!item.title || !item.quantity || !item.price}
         >
           {isEditing ? 'Update Entry' : 'Save Entry'}
         </Button>
